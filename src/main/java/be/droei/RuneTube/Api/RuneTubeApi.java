@@ -35,15 +35,7 @@ public class RuneTubeApi {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//
-//                Gson gson = new Gson();
-//                VideoData[] videoDataArray = gson.fromJson(response.toString(), VideoData[].class);
-//                result = Arrays.asList(videoDataArray);
-//
-//
-//                for (VideoData videoData : result) {
-//                    System.out.println(videoData);
-//                }
+
             } else {
                 System.out.println("Error: " + responseCode);
             }

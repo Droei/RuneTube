@@ -16,4 +16,8 @@ public class VideoData {
                 ", type:'" + tag + '\'' +
                 '}';
     }
+
+    public int getTag(){
+        return tag;
+    }
 }

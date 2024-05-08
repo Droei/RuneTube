@@ -1,6 +1,7 @@
 package be.droei.RuneTube.Api;
 
 import be.droei.RuneTube.classes.VideoData;
+import be.droei.RuneTube.enums.ChannelTagEnum;
 import be.droei.RuneTube.enums.PathEnum;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApiProcessor {
 
@@ -31,10 +33,15 @@ public class ApiProcessor {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         VideoData[] videoDataArray = gson.fromJson(jsonData.toString(), VideoData[].class);
 
-        for (VideoData videoData : videoDataArray) {
-            System.out.println(videoData);
-        }
+//        for (VideoData videoData : videoDataArray) {
+//            System.out.println(videoData);
+//        }
 
         return Arrays.asList(videoDataArray);
+    }
+
+    public List<VideoData> FilterByTag( List<VideoData> videoData, ChannelTagEnum channelTagEnum){
+        return videoData.stream().filter(e -> e.getTag() == channelTagEnum
+                .getNumber()).collect(Collectors.toList());
     }
 }

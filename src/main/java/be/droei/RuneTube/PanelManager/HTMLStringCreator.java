@@ -2,13 +2,15 @@ package be.droei.RuneTube.PanelManager;
 
 import be.droei.RuneTube.classes.YouTubeVid;
 
+import java.util.Objects;
+
 public class HTMLStringCreator {
     private static String htmlLabel(String key, String value)
     {
         return "<html><body style = 'color:#cccccc'>" + key + "<span style = 'color:FFFFFF'>" + value + "</span></body></html>";
     }
 
-    private static String htmlImage(YouTubeVid vid)
+    public static String htmlImage(YouTubeVid vid)
     {
         StringBuilder html = new StringBuilder("<html><body><div>");
         String str = vid.title;
@@ -36,11 +38,12 @@ public class HTMLStringCreator {
         return html.toString();
     }
 
-    private static String htmlTitle(){
+    public static String htmlTitle(String type){
+        if(Objects.equals(type, "All")) type = "";
         return "<html>\n" +
                 "<body>\n" +
                 "    <div style=\"width: 175px; background-color: rgb(59, 65, 65);\">\n" +
-                "<h1 style='font-size: 30px; margin: 0; padding: 0; width: 100%; text-align: center;'>Your latest RuneVids</h1>" +
+                "<h1 style='font-size: 30px; margin: 0; padding: 0; width: 100%; text-align: center;'>Your latest " + type + " RuneVids</h1>" +
                 "        </div>\n" +
                 "</body>\n" +
                 "</html>";
