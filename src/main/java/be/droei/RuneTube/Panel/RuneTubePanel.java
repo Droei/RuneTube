@@ -1,5 +1,6 @@
 package be.droei.RuneTube.Panel;
 
+import be.droei.RuneTube.Api.ApiProcessor;
 import be.droei.RuneTube.Api.RuneTubeApi;
 import be.droei.RuneTube.classes.VideoData;
 import lombok.Getter;
@@ -22,13 +23,18 @@ public class RuneTubePanel extends PluginPanel {
 
     @Getter
     private final RuneTubeTab runeTubeTab;
+    @Getter
+    private final ApiProcessor apiProcessor;
 
     @Inject
-    private RuneTubePanel(RuneTubeTab runeTubeTab)
+    private RuneTubePanel(RuneTubeTab runeTubeTab, ApiProcessor apiProcessor)
     {
         super(false);
 
+        this.apiProcessor = apiProcessor;
         this.runeTubeTab = runeTubeTab;
+
+        apiProcessor.GetAllVideos();
 
         setLayout(new BorderLayout());
         setBackground(ColorScheme.PROGRESS_INPROGRESS_COLOR);
