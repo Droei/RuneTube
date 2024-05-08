@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RuneTubeApi {
 
-    public List<VideoData> requestLatestVids() throws FileNotFoundException {
+    public List<VideoData> requestLatestVids(){
         List<VideoData> result = null;
         String apiUrl = System.getenv("API_URL");
 

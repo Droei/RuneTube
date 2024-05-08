@@ -20,4 +20,12 @@ public class VideoData {
     public int getTag(){
         return tag;
     }
+
+    String GetVideoUrl(){
+        return "https://www.youtube.com/watch?v="+id;
+    }
+
+    public String GetVideoImg(){
+        return "https://i.ytimg.com/vi/"+id+"/default.jpg";
+    }
 }

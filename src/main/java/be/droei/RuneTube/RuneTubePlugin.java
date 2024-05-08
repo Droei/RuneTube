@@ -1,5 +1,6 @@
 package be.droei.RuneTube;
 
+import be.droei.RuneTube.Api.ApiProcessor;
 import be.droei.RuneTube.Api.RuneTubeApi;
 import be.droei.RuneTube.Config.RuneTubeConfig;
 import be.droei.RuneTube.Panel.RuneTubePanel;
@@ -28,19 +29,19 @@ public class RuneTubePlugin extends Plugin
 	private ClientToolbar clientToolbar;
 
 	//	private MyAwesomePluginPanel tabTestPanel;
-	private RuneTubePanel runeTubePanel;
+//	private RuneTubePanel runeTubePanel;
 	private NavigationButton navButton;
-	private final RuneTubeApi runeTubeApi = new RuneTubeApi();
-
+	private RuneTubePanel runeTubePanel;
+	private RuneTubeApi runeTubeApi = new RuneTubeApi();
 	private List<VideoData> videoData;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		videoData = runeTubeApi.requestLatestVids();
+		runeTubeApi.requestLatestVids();
 
 		runeTubePanel = injector.getInstance(RuneTubePanel.class);
-
+		runeTubePanel.init();
 		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), PathEnum.PANELICON.getPath());
 
 		navButton = NavigationButton.builder()
@@ -56,6 +57,7 @@ public class RuneTubePlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		runeTubePanel.deInit();
 		clientToolbar.removeNavigation(navButton);
 		runeTubePanel = null;
 		navButton = null;
