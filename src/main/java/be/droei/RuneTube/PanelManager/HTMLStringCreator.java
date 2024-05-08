@@ -5,9 +5,9 @@ import be.droei.RuneTube.classes.VideoData;
 import java.util.Objects;
 
 public class HTMLStringCreator {
-    public static String htmlLabel(String key, String value)
+    public static String htmlLabel(String text)
     {
-        return "<html><body style = 'color:#cccccc'>" + key + "<span style = 'color:FFFFFF'>" + value + "</span></body></html>";
+        return "<html><body style = 'color:#cccccc; font-size: 10px;'><span style=\"background-color: rgb(59, 65, 65); text-align: center; font-size: 15px;\">" + text + "</span></body></html>";
     }
 
     public static String htmlImage(VideoData vid)

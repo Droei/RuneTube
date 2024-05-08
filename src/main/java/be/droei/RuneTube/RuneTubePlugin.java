@@ -32,13 +32,11 @@ public class RuneTubePlugin extends Plugin
 //	private RuneTubePanel runeTubePanel;
 	private NavigationButton navButton;
 	private RuneTubePanel runeTubePanel;
-	private RuneTubeApi runeTubeApi = new RuneTubeApi();
 	private List<VideoData> videoData;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		runeTubeApi.requestLatestVids();
 
 		runeTubePanel = injector.getInstance(RuneTubePanel.class);
 		runeTubePanel.init();

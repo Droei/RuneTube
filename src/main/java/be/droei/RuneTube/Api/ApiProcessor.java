@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 
 public class ApiProcessor {
 
+    RuneTubeApi runeTubeApi = new RuneTubeApi();
+
     public List<VideoData> GetAllVideos(){
         // Read JSON data from the file
         String filePath = PathEnum.VIDSJSON.getPath(); // Adjust the path based on your project structure
@@ -30,12 +32,13 @@ public class ApiProcessor {
             return null;
         }
 
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         VideoData[] videoDataArray = gson.fromJson(jsonData.toString(), VideoData[].class);
 
-//        for (VideoData videoData : videoDataArray) {
-//            System.out.println(videoData);
-//        }
+        for (VideoData videoData : videoDataArray) {
+            System.out.println(videoData);
+        }
 
         return Arrays.asList(videoDataArray);
     }

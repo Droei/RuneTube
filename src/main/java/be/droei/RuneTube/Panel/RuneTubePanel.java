@@ -25,45 +25,31 @@ public class RuneTubePanel extends PluginPanel
 {
     @Inject
     private EventBus eventBus;
-    private static ImageIcon TEST_ICON;
-    private static final Dimension ICON_SIZE = new Dimension(32, 175);
+//    private final ApiProcessor apiProcessor = new ApiProcessor();
+    RuneTubeApi runeTubeApi = new RuneTubeApi();
 
-    private final ApiProcessor apiProcessor = new ApiProcessor();
-
-    public void init() throws FileNotFoundException {
+    public void init(){
         setLayout(new BorderLayout());
         setBackground(ColorScheme.DARK_GRAY_COLOR);
 
-        JPanel versionPanel = new JPanel();
-        versionPanel.setBackground(ColorScheme.DARK_GRAY_COLOR);
-        versionPanel.setLayout(new GridLayout(0, 1));
+        add(Header(), BorderLayout.NORTH);
+        add(Main(), BorderLayout.CENTER);
+        add(Footer(), BorderLayout.SOUTH);
 
-        final Font smallFont = FontManager.getRunescapeSmallFont();
+        eventBus.register(this);
+    }
 
-        JLabel version = new JLabel(htmlLabel("Made by: ", "Droei"));
-        JLabel version2 = new JLabel(htmlLabel("Version: ", "Alpha 0.0.1"));
-        version.setFont(smallFont);
+    public void deInit() {
+        eventBus.unregister(this);
+    }
 
-        versionPanel.add(version);
-        versionPanel.add(version2);
-
-        add(versionPanel, BorderLayout.SOUTH);
-        JPanel titlePanel = new JPanel();
-        JLabel title = new JLabel(htmlTitle());
-        titlePanel.add(title);
-        add(titlePanel, BorderLayout.NORTH);
+    JPanel Main(){
+        JPanel result = new JPanel();
+        result.setBackground(ColorScheme.BORDER_COLOR);
+        result.setLayout(new GridLayout(0, 1));
 
 
-        JPanel capyPanel = new JPanel();
-        capyPanel.setBackground(ColorScheme.BORDER_COLOR);
-        capyPanel.setLayout(new GridLayout(0, 1));
-
-
-        for(VideoData videoData : apiProcessor.GetAllVideos()){
-
-//            JLabel vidTitle = new JLabel(videoData.title);
-//            capyPanel.add(vidTitle);
-
+        for(VideoData videoData : runeTubeApi.getRecentVids()){
             JLabel html = new JLabel(htmlImage(videoData));
             html.setBorder(new EmptyBorder(1, 0, 1, 0));
 
@@ -87,13 +73,29 @@ public class RuneTubePanel extends PluginPanel
                     html.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             });
-            capyPanel.add(html);
+            result.add(html);
         }
-        add(capyPanel);
-        eventBus.register(this);
+        return result;
     }
 
-    public void deInit() {
-        eventBus.unregister(this);
+    JPanel Header(){
+        JPanel result = new JPanel();
+        JLabel title = new JLabel(htmlTitle());
+        result.add(title);
+        return result;
+    }
+    JPanel Footer(){
+        JPanel result = new JPanel();
+        result.setBackground(ColorScheme.DARK_GRAY_COLOR);
+        result.setLayout(new GridLayout(3, 1));
+
+        final Font smallFont = FontManager.getRunescapeSmallFont();
+        JLabel version = new JLabel(htmlLabel("RuneTube is made by: Droei"));
+        JLabel version2 = new JLabel(htmlLabel("Version: Alpha 0.0.1"));
+        version.setFont(smallFont);
+
+        result.add(version);
+        result.add(version2);
+        return result;
     }
 }

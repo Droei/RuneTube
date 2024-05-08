@@ -1,16 +1,17 @@
 package be.droei.RuneTube.Api;
 
 import be.droei.RuneTube.classes.VideoData;
-import be.droei.RuneTube.enums.PathEnum;
+import com.google.gson.Gson;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 public class RuneTubeApi {
-
-    public List<VideoData> requestLatestVids(){
+    public List<VideoData> getRecentVids(){
         List<VideoData> result = null;
         String apiUrl = System.getenv("API_URL");
 
@@ -29,13 +30,13 @@ public class RuneTubeApi {
                 }
                 reader.close();
 
-                String filePath = PathEnum.VIDSJSON.getPath();
-                try (FileWriter fileWriter = new FileWriter(filePath)) {
-                    fileWriter.write(response.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Gson gson = new Gson();
+                VideoData[] videoDataArray = gson.fromJson(response.toString(), VideoData[].class);
+                result = Arrays.asList(videoDataArray);
 
+                for (VideoData videoData : result) {
+                    System.out.println(videoData);
+                }
             } else {
                 System.out.println("Error: " + responseCode);
             }
@@ -48,4 +49,3 @@ public class RuneTubeApi {
         return result;
     }
 }
-
