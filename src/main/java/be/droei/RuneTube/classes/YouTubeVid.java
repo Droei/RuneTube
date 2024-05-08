@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.classes;
+package be.droei.RuneTube.classes;
 
 public class YouTubeVid {
     public String id;

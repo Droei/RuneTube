@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.Config;
+package be.droei.RuneTube.Config;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;

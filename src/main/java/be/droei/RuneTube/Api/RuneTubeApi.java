@@ -1,7 +1,7 @@
-package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.Api;
+package be.droei.RuneTube.Api;
 
+import be.droei.RuneTube.classes.VideoData;
 import com.google.gson.Gson;
-import net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.classes.VideoData;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,17 +1,18 @@
-package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube;
+package be.droei.RuneTube;
 
+import be.droei.RuneTube.Config.RuneTubeConfig;
+import be.droei.RuneTube.Panel.RuneTubePanel;
 import com.google.inject.Provides;
-import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.Config.RuneTubeConfig;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.util.ImageUtil;
+
+import javax.inject.Inject;
+import java.awt.image.BufferedImage;
 
 @Slf4j
 @PluginDescriptor(
@@ -20,31 +21,37 @@ import net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.Conf
 public class RuneTubePlugin extends Plugin
 {
 	@Inject
-	private Client client;
+	private ClientToolbar clientToolbar;
 
-	@Inject
-	private RuneTubeConfig config;
+	//	private MyAwesomePluginPanel tabTestPanel;
+	private RuneTubePanel runeTubePanel;
+	private NavigationButton navButton;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		runeTubePanel = injector.getInstance(RuneTubePanel.class);
+
+		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "/youtube.png");
+
+		navButton = NavigationButton.builder()
+				.tooltip("Test")
+				.icon(icon)
+				.priority(0)
+				.panel(runeTubePanel)
+				.build();
+
+		clientToolbar.addNavigation(navButton);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		log.info("Example stopped!");
+		clientToolbar.removeNavigation(navButton);
+		runeTubePanel = null;
+		navButton = null;
 	}
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
-		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
-		}
-	}
 
 	@Provides
 	RuneTubeConfig provideConfig(ConfigManager configManager)

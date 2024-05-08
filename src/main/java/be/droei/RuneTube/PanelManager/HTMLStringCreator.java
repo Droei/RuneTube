@@ -1,6 +1,6 @@
-package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.PanelManager;
+package be.droei.RuneTube.PanelManager;
 
-import net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.classes.YouTubeVid;
+import be.droei.RuneTube.classes.YouTubeVid;
 
 public class HTMLStringCreator {
     private static String htmlLabel(String key, String value)
