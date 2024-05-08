@@ -1,11 +1,11 @@
-package com.example;
+package net.runelite.client.plugins.RuneTube.src.main.java.be.droei.RuneTube.Config;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("example")
-public interface ExampleConfig extends Config
+public interface RuneTubeConfig extends Config
 {
 	@ConfigItem(
 		keyName = "greeting",
