@@ -1,7 +1,9 @@
 package be.droei.RuneTube;
 
+import be.droei.RuneTube.Api.RuneTubeApi;
 import be.droei.RuneTube.Config.RuneTubeConfig;
 import be.droei.RuneTube.Panel.RuneTubePanel;
+import be.droei.RuneTube.classes.VideoData;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ConfigManager;
@@ -13,6 +15,7 @@ import net.runelite.client.util.ImageUtil;
 
 import javax.inject.Inject;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 @Slf4j
 @PluginDescriptor(
@@ -26,18 +29,23 @@ public class RuneTubePlugin extends Plugin
 	//	private MyAwesomePluginPanel tabTestPanel;
 	private RuneTubePanel runeTubePanel;
 	private NavigationButton navButton;
+	private final RuneTubeApi runeTubeApi = new RuneTubeApi();
+
+	private List<VideoData> videoData;
 
 	@Override
 	protected void startUp() throws Exception
 	{
+		videoData = runeTubeApi.getRecentVids();
+
 		runeTubePanel = injector.getInstance(RuneTubePanel.class);
 
 		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "/youtube.png");
 
 		navButton = NavigationButton.builder()
-				.tooltip("Test")
+				.tooltip("RuneTube")
 				.icon(icon)
-				.priority(0)
+				.priority(5)
 				.panel(runeTubePanel)
 				.build();
 
@@ -52,6 +60,10 @@ public class RuneTubePlugin extends Plugin
 		navButton = null;
 	}
 
+
+	public List<VideoData> getVideoData(){
+		return videoData;
+	}
 
 	@Provides
 	RuneTubeConfig provideConfig(ConfigManager configManager)

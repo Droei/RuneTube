@@ -1,5 +1,7 @@
 package be.droei.RuneTube.Panel;
 
+import be.droei.RuneTube.Api.RuneTubeApi;
+import be.droei.RuneTube.classes.VideoData;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
@@ -9,6 +11,7 @@ import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class RuneTubePanel extends PluginPanel {
 
@@ -24,11 +27,9 @@ public class RuneTubePanel extends PluginPanel {
     private RuneTubePanel(RuneTubeTab runeTubeTab)
     {
         super(false);
-        System.out.println("Attempting Panel");
-//
-//        this.testNewPanel = testNewPanel;
+
         this.runeTubeTab = runeTubeTab;
-//
+
         setLayout(new BorderLayout());
         setBackground(ColorScheme.PROGRESS_INPROGRESS_COLOR);
 //
